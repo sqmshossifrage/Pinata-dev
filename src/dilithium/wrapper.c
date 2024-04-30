@@ -41,12 +41,10 @@ int DilithiumState_sign(const DilithiumState* self, uint8_t* signature, const ui
 	return crypto_sign_signature(signature, &signatureSize, message, DILITHIUM_MESSAGE_SIZE, self->m_sk);
 }
 
-uint8_t* DilithiumNtt(const uint8_t* coeff_int_domain){
-	uint8_t* coeff_ntt_domain;
+void DilithiumNtt(uint8_t* coeff_ntt_domain, const uint8_t* coeff_int_domain){
 	poly c;
 
 	polyntt_unpack(&c, coeff_int_domain);
-	//poly_ntt(&c);
+	poly_ntt(&c);
 	polyntt_pack(coeff_ntt_domain, &c);
-	return coeff_ntt_domain;
 }

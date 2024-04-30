@@ -301,12 +301,10 @@ int main(void) {
 			case CMD_SW_DILITHIUM_NTT: {
 				// Receive the polynomial coefficients
 				uint8_t polynomialBuffer[sizeof(int32_t)*DILITHIUM_N];
+				uint8_t polynomialOut[sizeof(int32_t)*DILITHIUM_N];
 				get_bytes(sizeof(int32_t)*DILITHIUM_N, polynomialBuffer);
-				send_char(0xDE);
-				send_char(0xAD);
-				send_char(0xBE);
-				send_char(0xEF);
-				send_bytes(sizeof(int32_t)*DILITHIUM_N, DilithiumNtt(polynomialBuffer));
+				DilithiumNtt(polynomialOut, polynomialBuffer);
+				send_bytes(sizeof(int32_t)*DILITHIUM_N, polynomialOut);
 				break;
 			}
 			

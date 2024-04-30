@@ -84,6 +84,6 @@ void polyw1_pack(uint8_t *r, const poly *a);
 void polyntt_unpack(poly *r, const uint8_t *a);
 
 #define polyntt_pack DILITHIUM_NAMESPACE(polyntt_pack)
-void polyntt_pack(uint8_t *r, const poly *a)
+void polyntt_pack(uint8_t *r, const poly *a);
 
 #endif
