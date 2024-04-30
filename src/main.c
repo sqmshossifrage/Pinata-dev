@@ -297,7 +297,19 @@ int main(void) {
 				send_bytes(sizeof(privateKeySize), (const uint8_t*)&privateKeySize);
 				break;
 			}
-
+			
+			case CMD_SW_DILITHIUM_NTT: {
+				// Receive the polynomial coefficients
+				uint8_t polynomialBuffer[sizeof(int32_t)*DILITHIUM_N];
+				get_bytes(sizeof(int32_t)*DILITHIUM_N, polynomialBuffer);
+				send_char(0xDE);
+				send_char(0xAD);
+				send_char(0xBE);
+				send_char(0xEF);
+				send_bytes(sizeof(int32_t)*DILITHIUM_N, polynomialBuffer);
+				break;
+			}
+			
 			case CMD_SW_KYBER512_SET_PUBLIC_AND_PRIVATE_KEY: {
 				// Receive the input parameters and handle the request.
 				get_bytes(KYBER512_PUBLIC_KEY_SIZE, Kyber512State_getPublicKey(&kyber512));
