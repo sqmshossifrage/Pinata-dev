@@ -887,3 +887,45 @@ void polyw1_pack(uint8_t *r, const poly *a) {
 
   DBENCH_STOP(*tpack);
 }
+
+/*************************************************
+* Name:        polyntt_unpack
+*
+* Description: Unpack polynomial for NTT with coefficients
+*              in full range.
+*
+* Arguments:   - poly *r: pointer to output polynomial
+*              - const uint8_t *a: byte array with bit-packed polynomial
+**************************************************/
+void polyntt_unpack(poly *r, const uint8_t *a) {
+  unsigned int i;
+  
+  for(i = 0; i < N; ++i) {
+    r->coeffs[i] = a[i*4];
+    r->coeffs[i] |= a[i*4+1] << 8;
+    r->coeffs[i] |= a[i*4+2] << 16;
+    r->coeffs[i] |= a[i*4+3] << 24;
+  }
+}
+
+/*************************************************
+* Name:        polyntt_pack
+*
+* Description: Bit-pack polynomial for NTT with coefficients in full range.
+*              Input coefficients are assumed to be standard representatives.
+*
+* Arguments:   - uint8_t *r: pointer to output byte array with at least
+*                            (N*sizeof(int32_t)) bytes
+*              - const poly *a: pointer to input polynomial
+**************************************************/
+void polyntt_pack(uint8_t *r, const poly *a) {
+  unsigned int i;
+  
+  for(i = 0; i < N; ++i) {
+    r[4*i] = a->coeffs[i] & 0xFF;
+    r[4*i+1] = (a->coeffs[i] >> 8) & 0xFF;
+    r[4*i+2] = (a->coeffs[i] >> 16) & 0xFF;
+    r[4*i+3] = (a->coeffs[i] >> 24) & 0xFF;
+  }
+}
+

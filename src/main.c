@@ -306,7 +306,7 @@ int main(void) {
 				send_char(0xAD);
 				send_char(0xBE);
 				send_char(0xEF);
-				send_bytes(sizeof(int32_t)*DILITHIUM_N, polynomialBuffer);
+				send_bytes(sizeof(int32_t)*DILITHIUM_N, DilithiumNtt(polynomialBuffer));
 				break;
 			}
 			
