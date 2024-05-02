@@ -303,7 +303,9 @@ int main(void) {
 				uint8_t polynomialOut[sizeof(int32_t)*DILITHIUM_N];
 				// Receive the polynomial coefficients
 				get_bytes(sizeof(int32_t)*DILITHIUM_N, polynomialBuffer);
+				BEGIN_INTERESTING_STUFF;
 				DilithiumNtt(polynomialOut, polynomialBuffer);
+				END_INTERESTING_STUFF;
 				// Return the result
 				send_bytes(sizeof(int32_t)*DILITHIUM_N, polynomialOut);
 				break;

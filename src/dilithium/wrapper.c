@@ -15,6 +15,14 @@
 #error invalid signature size, update me!
 #endif
 
+void wait();
+
+void wait(){
+	for (int i=0; i<20000; ++i){
+
+	}
+}
+
 int getDilithiumAlgorithmVariant() {
 	return DILITHIUM_MODE;
 }
@@ -42,9 +50,13 @@ int DilithiumState_sign(const DilithiumState* self, uint8_t* signature, const ui
 }
 
 void DilithiumNtt(uint8_t* coeff_ntt_domain, const uint8_t* coeff_int_domain){
+	wait();
 	poly c;
-
+	wait();
 	polyntt_unpack(&c, coeff_int_domain);
+	wait();
 	poly_ntt(&c);
+	wait();
 	polyntt_pack(coeff_ntt_domain, &c);
+	wait();
 }
