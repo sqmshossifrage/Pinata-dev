@@ -86,6 +86,6 @@ int DilithiumState_sign(const DilithiumState* self, uint8_t* signature, const ui
  * @param[in]  coeff_int_domain  Buffer of polynomial coefficients in integer domain.
  * @param[out] coeff_ntt_domain  Buffer of polynomial coefficients in NTT domain. 
  */
-void DilithiumNtt(uint8_t* coeff_ntt_domain, const uint8_t* coeff_int_domain);
+int DilithiumNtt(uint8_t* coeff_ntt_domain, const uint8_t* coeff_int_domain);
 
 #endif // _DILITHIUM_WRAPPER_H_

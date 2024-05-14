@@ -15,12 +15,13 @@
 #error invalid signature size, update me!
 #endif
 
-void wait();
+int32_t wait(int32_t a);
 
-void wait(){
-	for (int i=0; i<20000; ++i){
-
+int32_t wait(int32_t a){
+	for (int32_t i=0; i<2000; ++i){
+		a ^= i;
 	}
+	return a;
 }
 
 int getDilithiumAlgorithmVariant() {
@@ -49,14 +50,15 @@ int DilithiumState_sign(const DilithiumState* self, uint8_t* signature, const ui
 	return crypto_sign_signature(signature, &signatureSize, message, DILITHIUM_MESSAGE_SIZE, self->m_sk);
 }
 
-void DilithiumNtt(uint8_t* coeff_ntt_domain, const uint8_t* coeff_int_domain){
-	wait();
+int DilithiumNtt(uint8_t* coeff_ntt_domain, const uint8_t* coeff_int_domain){
+	int32_t b = wait(0);
 	poly c;
-	wait();
 	polyntt_unpack(&c, coeff_int_domain);
-	wait();
+	b = wait(b);
 	poly_ntt(&c);
-	wait();
+	b = wait(b);
 	polyntt_pack(coeff_ntt_domain, &c);
-	wait();
+	b = wait(b);
+
+	return (int)b;
 }
