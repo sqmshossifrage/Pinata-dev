@@ -51,14 +51,12 @@ int DilithiumState_sign(const DilithiumState* self, uint8_t* signature, const ui
 }
 
 int DilithiumNtt(uint8_t* coeff_ntt_domain, const uint8_t* coeff_int_domain){
-	int32_t b = wait(0);
 	poly c;
 	polyntt_unpack(&c, coeff_int_domain);
-	b = wait(b);
+	int32_t b = wait(0);
 	poly_ntt(&c);
 	b = wait(b);
 	polyntt_pack(coeff_ntt_domain, &c);
-	b = wait(b);
 
 	return (int)b;
 }

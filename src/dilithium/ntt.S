@@ -62,6 +62,7 @@ pqcrystals_dilithium_ntt:
 
   //preserve registers
   push {R4-R11, R14}
+  
   ldr ptr_zeta, =#zetas_interleaved_asm
   add ptr_zeta, #4
   //load constants, ptr
@@ -73,6 +74,7 @@ pqcrystals_dilithium_ntt:
   ldr zeta1, [ptr_zeta, #4]  //z2
   ldr zeta2, [ptr_zeta, #8]  //z3
   ldr zeta0, [ptr_zeta], #12  //z1
+
   1:
     ldr.w pol0, [ptr_p]
     ldr pol1, [ptr_p, #256]  //64*4
@@ -90,7 +92,7 @@ pqcrystals_dilithium_ntt:
     subs cntr, #1
     bne 1b
   sub ptr_p, #256      // on pol0 again
-
+  
   //stage 3 and 4
   movw cntr, #16
   ldr zeta1, [ptr_zeta, #4]  //z8
